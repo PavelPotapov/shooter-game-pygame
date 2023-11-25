@@ -18,10 +18,14 @@ background_image = pygame.transform.scale(
 clock = pygame.time.Clock()
 
 hero = Hero(f"./img/{R_IMG}", R_X, R_Y, R_SPEED, R_SIZE)
+enemies_group = pygame.sprite.Group()
 
-enemy1 = Enemy(f"./img/{E_IMAGES[randint(0, 1)]}", 0, 0, 3, E_SIZE)
 
-
+def create_enemies():
+    for i in range(E_COUNTS):
+        enemy = Enemy(f"./img/{E_IMAGES[randint(0, len(E_IMAGES) - 1)]}", randint(
+            0, WIDTH - E_SIZE[0]), -E_SIZE[1], randint(1, 4), E_SIZE)
+        enemies_group.add(enemy)
 def check_click_cross():
     global GAME
     # перебор событий внешнего мира
@@ -29,16 +33,16 @@ def check_click_cross():
         if e.type == pygame.QUIT:  # крестик
             GAME = False
 
-
+create_enemies()
 while GAME:
     check_click_cross()
     window.blit(background_image, (0, 0))  # отобразили задний фон
 
-    hero.update(window)  # отобразили главного героя
+    hero.draw(window)  # отобразили главного героя
     hero.move()
 
-    enemy1.update(window)
-    enemy1.move()
+    enemies_group.draw(window)
+    enemies_group.update()
 
     clock.tick(FPS)
     pygame.display.update()

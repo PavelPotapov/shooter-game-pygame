@@ -14,7 +14,7 @@ class GameSprite(pygame.sprite.Sprite):
         self.width = sizes[0]
         self.height = sizes[1]
 
-    def update(self, win):
+    def draw(self, win):
         win.blit(self.image, (self.rect.x, self.rect.y))
 
 
@@ -38,11 +38,11 @@ class Hero(GameSprite):
 
 
 class Enemy(GameSprite):
-    def move(self):
+    def update(self):
         self.rect.y += self.speed
         if self.rect.y > HEIGHT:
             self.rect.x = randint(0, WIDTH - self.width)
             self.rect.y = -self.height
             self.speed = randint(1, 4)
             self.image = pygame.transform.scale(pygame.image.load(
-                f"./img/{E_IMAGES[randint(0, 1)]}"), (self.width, self.height))
+                f"./img/{E_IMAGES[randint(0, len(E_IMAGES) - 1)]}"), (self.width, self.height))

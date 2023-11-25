@@ -17,6 +17,6 @@ R_MODE_MOVE = 2
 
 
 # ВРАГИ
-E_COUNTS = 5  # кол-во врагов
+E_COUNTS = 10  # кол-во врагов
 E_SIZE = (50, 50)
-E_IMAGES = ["enemies/ufo.png", "enemies/ufo2.png"]
+E_IMAGES = [f"enemies/ufo{i}.png" for i in range(1, 8)]
